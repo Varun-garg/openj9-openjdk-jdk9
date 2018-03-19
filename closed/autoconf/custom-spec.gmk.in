@@ -46,6 +46,9 @@ endif
 ## DDR
 OPENJ9_ENABLE_DDR       := @OPENJ9_ENABLE_DDR@
 
+## Valgrind Memcheck
+OPENJ9_ENABLE_VALGRIND       := @OPENJ9_ENABLE_VALGRIND@
+
 # for constructing version output
 COMPILER_VERSION_STRING := @COMPILER_VERSION_STRING@
 OPENJDK_SHA             := @OPENJDK_SHA@

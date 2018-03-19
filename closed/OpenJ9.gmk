@@ -285,6 +285,14 @@ else
   SPEC_SED_SCRIPT    += $(call SedDisable,module_ddr)
 endif
 
+# enable valgrind memcheck APIs in OMR and openJ9
+ifeq (true,$(OPENJ9_ENABLE_VALGRIND))
+  OMR_EXTRA_CONFIGURE_ARGS += --enable-OMR_VALGRIND_MEMCHECK
+  FEATURE_SED_SCRIPT += $(call SedEnable,opt_valgrindSupport)
+else
+  FEATURE_SED_SCRIPT += $(call SedDisable,opt_valgrindSupport)
+endif
+
 # Disable windows rebase.
 SPEC_SED_SCRIPT += $(call SedDisable,uma_windowsRebase)
 

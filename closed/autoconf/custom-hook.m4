@@ -48,6 +48,7 @@ AC_DEFUN_ONCE([CUSTOM_EARLY_HOOK],
   OPENJ9_CONFIGURE_CMAKE
   OPENJ9_CONFIGURE_CUDA
   OPENJ9_CONFIGURE_DDR
+  OPENJ9_CONFIGURE_VALGRIND
   OPENJ9_CONFIGURE_NUMA
   OPENJ9_THIRD_PARTY_REQUIREMENTS
 ])
@@ -161,6 +162,24 @@ AC_DEFUN([OPENJ9_CONFIGURE_DDR],
 
   AC_SUBST(OPENJ9_ENABLE_DDR)
 ])
+
+AC_DEFUN([OPENJ9_CONFIGURE_VALGRIND],
+[
+  AC_ARG_ENABLE([valgrind], [AS_HELP_STRING([--enable-valgrind], [enable linking with Valgrind Memcheck @<:@disabled@:>@])])
+
+  if test "x$enable_valgrind" = xyes ; then
+    AC_CHECK_HEADER(valgrind/memcheck.h, OPENJ9_ENABLE_VALGRIND=true, OPENJ9_ENABLE_VALGRIND=false)
+  elif test "x$enable_valgrind" = xno ; then
+    OPENJ9_ENABLE_VALGRIND=false
+  elif test "x$enable_valgrind" = x ; then
+    OPENJ9_ENABLE_VALGRIND=false
+  else
+    AC_MSG_ERROR([invalid argument for --enable-valgrind])
+  fi
+
+  AC_SUBST(OPENJ9_ENABLE_VALGRIND)
+])
+
 
 AC_DEFUN([OPENJ9_PLATFORM_EXTRACT_VARS_FROM_CPU],
 [
